@@ -10,7 +10,25 @@ import { NotImplementedError } from '../extensions/index.js';
  * For aabbbc should return 2a3bc
  *
  */
-export default function encodeLine(/* str */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function encodeLine(str) {
+  let result = '';
+
+  let prevSymbol = '';
+  let prevSymbolFrequency = 0;
+
+  for (const symbol of str) {
+    if (symbol === prevSymbol) {
+      prevSymbolFrequency += 1;
+    } else {
+      if (prevSymbolFrequency > 0) {
+        result += (prevSymbolFrequency > 1 ? prevSymbolFrequency : '') + prevSymbol;
+      }
+      prevSymbol = symbol;
+      prevSymbolFrequency = 1;
+    }
+  }
+  if (prevSymbolFrequency > 0) {
+    result += (prevSymbolFrequency > 1 ? prevSymbolFrequency : '') + prevSymbol;
+  }
+  return result;
 }
